@@ -13,14 +13,14 @@ month_today = format_datetime(today, "MMMM", locale="es")
 base_dir = Path(__file__).parent
 template_path = base_dir / "template.docx"
 excel_path = base_dir / "datos.xlsx"
-output_dir = base_dir / f"cartas-{today_date}"
+output_dir = base_dir / "cartas" / f"cartas-{today_date}"
 
 output_dir.mkdir(exist_ok=True)
 
 df = pd.read_excel(excel_path, sheet_name="Sheet1")
 
 fecha_pago = df["fecha_pago"][0]
-fecha_pago = format_datetime(today, "d 'de' MMMM y", locale="es")
+fecha_pago = format_datetime(fecha_pago, "d 'de' MMMM y", locale="es")
 
 def convert_to_pdf(doc):
     word = win32.DispatchEx('Word.Application')
@@ -28,6 +28,7 @@ def convert_to_pdf(doc):
     word_document= word.Documents.Open(str(doc))
     word_document.SaveAs(pdf_name, FileFormat=17)
     word_document.Close()
+    word.Quit()
     return None
 
 
