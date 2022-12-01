@@ -12,7 +12,7 @@ month_today = format_datetime(today, "MMMM", locale="es")
 
 base_dir = Path(__file__).parent
 template_path = base_dir / "carta.docx"
-excel_path = base_dir / "lista.xlsx"
+excel_path = base_dir / "lista_actual_mayores.xlsx"
 output_dir = base_dir / "cartas" / f"cartas-{today_date}"
 
 output_dir.mkdir(exist_ok=True)
