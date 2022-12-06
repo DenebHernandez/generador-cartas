@@ -1,7 +1,7 @@
 import datetime
+from pathlib import Path
 import pandas as pd
 import win32com.client as win32
-from pathlib import Path
 from docxtpl import DocxTemplate
 from babel.dates import format_datetime
 
