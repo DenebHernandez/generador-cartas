@@ -15,7 +15,7 @@ def define_documents():
     output_dir = output_entry.get()
     generador.documents(excel_file=excel_file, word_template=word_file, outpur_dir=output_dir)
 
-def render(self):
+def render():
     export_word = to_word_var.get()
     export_pdf = to_pdf_var.get()
     define_documents()
@@ -93,7 +93,7 @@ to_word_checkbutton = tk.Checkbutton(root, text="Exportar a Word", variable=to_w
 to_word_checkbutton.grid(column=1, row=6)
 
 #llamada inicio del proceso
-run_button = tk.Button(root, text="Validar", command=validation)
+run_button = tk.Button(root, text="Generar", command=render)
 run_button.grid(column=1, row=9)
 
 root.mainloop()
