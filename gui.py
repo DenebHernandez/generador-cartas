@@ -1,4 +1,5 @@
 import os
+import threading
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
@@ -19,7 +20,30 @@ def render():
     export_word = to_word_var.get()
     export_pdf = to_pdf_var.get()
     define_documents()
+    # Define a function to show the "Processing" pop-up window
+    # Define a function to show the "Done" pop-up window
+    def show_done_message():
+        messagebox.showinfo("Proceso finalizado", "Proceso finalizado")
+
+    # Disable the "Generar" button while rendering
+    run_button.config(state=tk.DISABLED)
+
+    # Show the "Processing" label
+    processing_label.config(text="Procesando...")
+    processing_label.update()
+
     generador.render_template(to_word=export_word, to_pdf=export_pdf)
+
+    # Enable the "Generar" button after rendering is complete
+    run_button.config(state=tk.NORMAL)
+
+    # Clear the "Processing" label
+    processing_label.config(text="")
+    processing_label.update()
+
+    # Show the "Done" pop-up window
+    show_done_message()
+    # generador.render_template(to_word=export_word, to_pdf=export_pdf)
 
 def browse_word_file():
     file_path = filedialog.askopenfilename(filetypes=[('Word files', '*.docx')])
@@ -95,5 +119,8 @@ to_word_checkbutton.grid(column=1, row=6)
 #llamada inicio del proceso
 run_button = tk.Button(root, text="Generar", command=render)
 run_button.grid(column=1, row=9)
+
+processing_label = tk.Label(root, text="")
+processing_label.grid(column=1, row=10)
 
 root.mainloop()
